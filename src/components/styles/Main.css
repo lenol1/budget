@@ -1,0 +1,105 @@
+.home{
+  background: rgba(0, 0, 0, .95);
+  margin: 40px auto;
+  width: 90%;
+  height: 80%;
+  padding: 2em 2em 2em;
+  border-radius: 2em;
+  white-space: nowrap; 
+}
+#add_category{
+  position: absolute;
+  width: 150%;
+  transform: translate(-50%, -50%);
+  background:  rgba(255, 255, 255, 0.8);
+  padding: 5% 17% 5% 5%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+}
+#add_account{
+  position: absolute;
+  width: 250%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.8);
+  padding: 5% 17% 5% 5%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+}
+.input-container {
+  display: flex; 
+  flex-wrap: wrap;
+  gap: 10px; 
+}
+.add_accountIB{
+  flex: 1 1 calc(30% - 10px);
+  padding: 10px;
+  text-align: center;
+  box-sizing: border-box;
+  color: white;
+  border: none; 
+  font-size: 14px;
+  border-radius: 8px;
+  text-align: center; 
+}
+#add_account button:hover, #insert_button button:hover {
+  background-color: #0056b3;
+}
+#transactionForms{
+  margin: 0 0 0 85.5%;
+  width: 15%;
+  font-weight: 800;
+  font-size: 14px;
+  border-radius: 8px;
+}
+#transactionIB{
+  margin: 0 0.5% 0.5% 35%;
+  width: 30%;
+  font-weight: 800;
+  font-size: 16px;
+  border-radius: 8px;
+  text-align: center;
+}
+#transactionI{
+  width: 50%;
+  margin: 0 0.5% 0.5% 24%;
+  font-weight: 800;
+  font-size: 16px;
+  border-radius: 8px;
+  text-align: center;
+}
+#insert_button{
+  position: relative;
+  display: inline-block;
+  width: 15%;
+  border-radius: 8px;
+}
+#exit_span{
+  display: block;
+  text-align: right;
+  position: absolute;
+  top: 0; 
+  right: 2.5%;
+  cursor: pointer;
+}
+#logo{
+  background:  rgba(255, 255, 255, .85); 
+  width: 200px;
+  height: 90px;
+  border-radius: 50%;
+  white-space: nowrap;
+  margin-left: 20px;
+  position: absolute;
+}
+#transactionsList{
+  border: 1px solid #ddd;
+  border-style: groove;
+  padding: 8px;
+  text-align: center; 
+}
+.highlighted-form { 
+  background-color: rgba(3, 111, 226, 0.05);
+  padding: 20px; 
+  border: 5px #004c9e; 
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9); 
+}

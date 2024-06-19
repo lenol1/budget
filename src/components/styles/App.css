@@ -1,0 +1,113 @@
+#header {
+  background: rgba(0, 0, 0, .9);
+  margin: 0px auto;
+  width: 90%;
+  height: 50px;
+  padding: 2em 2em 2em;
+  border-radius: 2em;
+}
+#mainHComponents{
+  font-size: 18px;
+  display: flex;
+  width: 90%;
+  position: absolute;
+  justify-content:space-around;
+  align-items:center;
+}
+#main{
+  background: rgba(0, 0, 0, .9);
+  margin: 20px auto;
+  width: 90%;
+  height: 80%;
+  padding: 0em 2em 2em;
+  border-radius: 2em;
+  white-space: nowrap;
+  background-image:
+  url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='100px' width='200px'><text x='10' y='60' fill='black' font-size='28' font-family='Mixed Breed Regular' transform='skewX(-20) rotate(-15)'>SaveySavvy</text></svg>"); 
+}
+h1,h2,h3,h4, p, label{
+  color: white;
+  margin: 0 auto;
+}
+#link, a{
+  text-decoration: none;
+}
+#link:hover, a{
+  text-decoration:underline;
+  color: white;
+}
+#title{
+  text-align: center; 
+  width: 200px; 
+  margin: 0 auto;
+}
+button{
+  width: 27%;
+  border-color: aliceblue;
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis;
+  box-sizing: border-box; 
+}
+input{
+  width: 25%;
+}
+#button{
+  margin: 0 0 0 39%;
+  width: 27%;
+}
+#regforms{
+  padding: 10px;
+  font-size: 17px;
+  font-weight: 800;
+  border-radius: 5px;
+  margin: 0 auto;
+}
+#regforms_{
+  padding: 10px;
+  font-size: 17px;
+  font-weight: 800;
+  border-radius: 5px;
+  margin: 0 0 0 28%;
+  width: 40%;
+}
+input, button, select{
+  border: none;
+  background-color: rgb(50, 50, 50);
+  color: rgb(255, 255, 255);
+}
+form{
+  display: flex;
+  flex-direction: column;
+}
+#header #link {
+  margin: 0 15px;
+}
+.language-buttons button {
+  background-color: transparent;
+  border: none;
+  text-decoration-style: solid;
+  text-decoration: underline;
+  border-radius: 3px;
+  width: 40px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  position: fixed;
+  right: 5%;
+}
+.language-buttons button:hover{
+  background-color: cadetblue;
+}
+::-webkit-scrollbar {
+  width: 15px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(3, 80, 161, 0.486); 
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}

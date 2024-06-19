@@ -1,0 +1,9 @@
+.column {
+   column-count: 2;
+
+}
+
+.input-field {
+    margin: 0 0 0 28%;
+    width: 40%;
+}
