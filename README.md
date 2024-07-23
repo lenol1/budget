@@ -1,3 +1,14 @@
+# Interfaces
+![image](https://github.com/user-attachments/assets/009b1029-2499-41ce-bf96-034a1fc6be7e)
+![image](https://github.com/user-attachments/assets/f81c730a-ad6c-4e08-867a-1592756fe05d)
+![image](https://github.com/user-attachments/assets/e248ca8c-6cc2-4540-854b-153444274472)
+![image](https://github.com/user-attachments/assets/a9267f5b-545a-4908-9992-ab18563814d5)
+![image](https://github.com/user-attachments/assets/d895a431-d0fe-40b3-b148-3c4c0765441c)
+![image](https://github.com/user-attachments/assets/ce19bde0-0012-45c4-a789-337c4cefe9fa)
+![image](https://github.com/user-attachments/assets/b8784cf7-0176-411e-9d0a-0db34b9b8728)
+![image](https://github.com/user-attachments/assets/2a6ca928-4c9b-47ca-a953-0682f373ce8e)
+![image](https://github.com/user-attachments/assets/7667f319-ba41-4f7e-8d9d-8646d2a63534)
+![image](https://github.com/user-attachments/assets/b6e2e6ba-9de2-4c66-99a8-011159326938)
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
