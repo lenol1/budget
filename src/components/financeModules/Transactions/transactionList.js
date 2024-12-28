@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import sortTransactions from './sortTransactions';
+import { useTranslation } from 'react-i18next';
 
 const TransactionList = () => {
   const [transactions, setTransactions] = useState([]);
@@ -8,6 +9,7 @@ const TransactionList = () => {
   const [visibleTransactions, setVisibleTransactions] = useState(10);
   const [currentTransaction, setCurrentTransaction] = useState(null);
   const [editModalOpen, setEditModalOpen] = useState(false);
+  const { t } = useTranslation();
 
   const currentDate = new Date();
 
@@ -95,23 +97,32 @@ const TransactionList = () => {
       console.error('Error editing transaction:', error);
     }
   };
+  function formatCardNumber(cardNumber) {
+    if (!cardNumber || cardNumber.length !== 16) {
+      return cardNumber;
+    }
+    const firstPart = cardNumber.substring(0, 4);
+    const lastPart = cardNumber.substring(12, 16);
+    const maskedPart = '**** ****';
+    return `${firstPart} ${maskedPart} ${lastPart}`;
+  }
 
   return (
-    <div style={{ color: 'white', overflowY: 'auto', maxHeight: '600px' }}>
+    <div style={{ color: 'white', overflowY: 'auto', maxHeight: '550px' }}>
       {accounts.length > 0 ? (
         accounts.map(account => (
-          <div key={account._id} style={{ marginBottom: '40px'}}>
-            <h2>Account № {account.accountNumber} ({account.bankName})</h2>
-            <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
+          <div key={account._id} style={{ marginBottom: '40px' }}>
+            <h2>{t('transaction.account')} № {formatCardNumber(account.accountNumber)} ({account.bankName})</h2>
+            <table className='tableStyle' >
               <thead>
-                <tr style={{backgroundColor:'rgba(3, 111, 226, 0.1)' }}>
-                  <th id='transactionsList'>Amount</th>
-                  <th id='transactionsList'>Currency</th>
-                  <th id='transactionsList'>Type</th>
-                  <th id='transactionsList'>Category</th>
-                  <th id='transactionsList'>Description</th>
-                  <th id='transactionsList'>Date</th>
-                  <th id='transactionsList'>Actions</th>
+                <tr style={{ backgroundColor: 'rgba(3, 111, 226, 0.1)' }}>
+                  <th id='transactionsList'>{t('transaction.amount')}</th>
+                  <th id='transactionsList'>{t('transaction.currency')}</th>
+                  <th id='transactionsList'>{t('transaction.type')}</th>
+                  <th id='transactionsList'>{t('transaction.category')}</th>
+                  <th id='transactionsList'>{t('transaction.description')}</th>
+                  <th id='transactionsList'>{t('transaction.date')}</th>
+                  <th id='transactionsList'>{t('transaction.action')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -119,73 +130,75 @@ const TransactionList = () => {
                   .filter(transaction => transaction.accountId === account._id)
                   .slice(0, visibleTransactions)
                   .map(transaction => (
-                    <tr key={transaction._id} style={{backgroundColor: isTransactionThisMonth(transaction.date) ? 'rgba(3, 111, 226, 0.1)' : 'transparent', boxShadow:' 0 4px 8px rgba(0, 0, 0, 0.9)'}}>
+                    <tr key={transaction._id} style={{ backgroundColor: isTransactionThisMonth(transaction.date) ? 'rgba(3, 111, 226, 0.1)' : 'transparent', boxShadow: ' 0 4px 8px rgba(0, 0, 0, 0.9)' }}>
                       <td id='transactionsList'>{parseFloat(transaction.amount)}</td>
                       <td id='transactionsList'>{transaction.currency}</td>
-                      <td id='transactionsList'>{transaction.transactionType}</td>
-                      <td id='transactionsList'>{getCategoryName(transaction.category)}</td>
+                      <td id='transactionsList'>{t(`transactionL.${transaction.transactionType}`)}</td>
+                      <td id='transactionsList'>{t(`transactionL.${getCategoryName(transaction.category)}`)}</td>
                       <td id='transactionsList'>{transaction.description}</td>
                       <td id='transactionsList'>{new Date(transaction.date).toLocaleDateString()}</td>
                       <td id='transactionsList'>
-                        <button style={{width:'50%'}} onClick={() => handleEditClick(transaction)}>Edit</button>
-                        <button onClick={() => handleDeleteClick(transaction._id)}>Х</button>
+                        <button style={{ width: '40%', backgroundColor: 'transparent' }} onClick={() => handleEditClick(transaction)}>
+                          <img src="/../materials/edit.png" alt="edit" style={{ width: '20px' }} /></button>
+                        <button style={{ width: '40%', backgroundColor: 'transparent' }} onClick={() => handleDeleteClick(transaction._id)}>
+                          <img src="/../materials/delete.png" alt="delete" style={{ width: '20px' }} /></button>
                       </td>
                     </tr>
                   ))}
               </tbody>
             </table>
             {transactions.filter(transaction => transaction.accountId === account._id).length > visibleTransactions && (
-              <button onClick={() => setVisibleTransactions(prev => prev + 10)}>Show More Transactions</button>
+              <button onClick={() => setVisibleTransactions(prev => prev + 10)}>{t('transaction.more')}</button>
             )}
-            {visibleTransactions > 10 && ( 
-              <button onClick={() => setVisibleTransactions(10)}>Close Transactions</button>
+            {visibleTransactions > 10 && (
+              <button onClick={() => setVisibleTransactions(10)}>{t('transaction.close')}</button>
             )}
           </div>
         ))
       ) : (
-        <p>No accounts found.</p>
+        <p>{t('transaction.empty')}</p>
       )}
 
       {editModalOpen && (
-        <div className="modal" style={{display:'grid', placeItems:'center', position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', backgroundColor: 'rgb(255,255,255,0.8)', padding: '20px', zIndex: 1000 }}>
-          <h2 style={{color:'black'}}>Edit Transaction</h2><br/>
+        <div className="modal" style={{ display: 'grid', placeItems: 'center', position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', backgroundColor: 'rgb(255,255,255,0.8)', padding: '20px', zIndex: 1000 }}>
+          <h2 style={{ color: 'black' }}>{t('form.edittransaction')}</h2><br />
           <form onSubmit={handleEditSubmit}>
-              <input id='transactionI'
-                type="number"
-                value={currentTransaction.amount}
-                onChange={(e) => setCurrentTransaction({ ...currentTransaction, amount: e.target.value })}
-              />
-              <input id='transactionI'
-                type="text"
-                value={currentTransaction.currency}
-                onChange={(e) => setCurrentTransaction({ ...currentTransaction, currency: e.target.value })}
-              />
-              <input id='transactionI'
-                type="text"
-                value={currentTransaction.transactionType}
-                onChange={(e) => setCurrentTransaction({ ...currentTransaction, transactionType: e.target.value })}
-              />
-              <select id='transactionI'
-                value={currentTransaction.category}
-                onChange={(e) => setCurrentTransaction({ ...currentTransaction, category: e.target.value })}
-              >
-                {categories.map(category => (
-                  <option key={category._id} value={category._id}>{category.name}</option>
-                ))}
-              </select>
-              <input id='transactionI'
-                type="text"
-                value={currentTransaction.description}
-                onChange={(e) => setCurrentTransaction({ ...currentTransaction, description: e.target.value })}
-              />
-              <input id='transactionI'
-                type="date"
-                value={new Date(currentTransaction.date).toISOString().substr(0, 10)}
-                onChange={(e) => setCurrentTransaction({ ...currentTransaction, date: e.target.value })}
-              />
+            <input id='transactionI'
+              type="number"
+              value={currentTransaction.amount}
+              onChange={(e) => setCurrentTransaction({ ...currentTransaction, amount: e.target.value })}
+            />
+            <input id='transactionI'
+              type="text"
+              value={currentTransaction.currency}
+              onChange={(e) => setCurrentTransaction({ ...currentTransaction, currency: e.target.value })}
+            />
+            <input id='transactionI'
+              type="text"
+              value={currentTransaction.transactionType}
+              onChange={(e) => setCurrentTransaction({ ...currentTransaction, transactionType: e.target.value })}
+            />
+            <select id='transactionI'
+              value={currentTransaction.category}
+              onChange={(e) => setCurrentTransaction({ ...currentTransaction, category: e.target.value })}
+            >
+              {categories.map(category => (
+                <option key={category._id} value={category._id}>{category.name}</option>
+              ))}
+            </select>
+            <input id='transactionI'
+              type="text"
+              value={currentTransaction.description}
+              onChange={(e) => setCurrentTransaction({ ...currentTransaction, description: e.target.value })}
+            />
+            <input id='transactionI'
+              type="date"
+              value={new Date(currentTransaction.date).toISOString().substr(0, 10)}
+              onChange={(e) => setCurrentTransaction({ ...currentTransaction, date: e.target.value })}
+            />
             <br />
-            <button id='transactionI' type="submit">Save</button>
-            <button id='transactionI' type="button" onClick={() => setEditModalOpen(false)}>Cancel</button>
+            <button id='transactionI' type="submit">{t('form.save')}</button>
+            <button id='transactionI' type="button" onClick={() => setEditModalOpen(false)}>{t('form.cancel')}</button>
           </form>
         </div>
       )}

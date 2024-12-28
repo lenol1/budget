@@ -1,6 +1,7 @@
 .column {
-   column-count: 2;
-
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20%;
 }
 
 .input-field {

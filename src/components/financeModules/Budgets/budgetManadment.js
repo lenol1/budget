@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AddCategory from '../Categories/addCategory';
+import { useTranslation } from 'react-i18next';
 
 const AddBudget = () => {
   const [categories, setCategories] = useState([]);
@@ -9,6 +10,7 @@ const AddBudget = () => {
   const [endDate, setEndDate] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [isFormVisible, setIsFormVisible] = useState(false);
+  const { t } = useTranslation();
 
   const fetchCategories = async () => {
     try {
@@ -42,7 +44,7 @@ const AddBudget = () => {
       });
       const result = await response.json();
       if (response.ok) {
-        
+
       } else {
         setErrorMessage(result.message);
       }
@@ -51,42 +53,46 @@ const AddBudget = () => {
       setErrorMessage('Internal server error');
     }
   };
-const toggleFormVisibility = () => {
+  const toggleFormVisibility = () => {
     setIsFormVisible(!isFormVisible);
-};
-function refreshPage(){ 
-  window.location.reload(); 
-};
+  };
+  function refreshPage() {
+    window.location.reload();
+  };
+
   return (
-  <div>
-    <button id='transactionForms' onClick={toggleFormVisibility}>
-        {isFormVisible ? 'Close Form' : 'New Budget'}
+    <div>
+      <button id='transactionForms' onClick={toggleFormVisibility}>
+        {isFormVisible ? t('form.close') : t('form.addbudget')}
       </button>
       {isFormVisible && (
-      <form onSubmit={handleSubmit}> <br />
-      <div className="highlighted-form">
-      <div>
-        <select id='transactionIB' value={categoryId} onChange={(e) => setCategoryId(e.target.value)} required>
-          <option value="">Category</option>
-          {categories.map(category => (
-            <option key={category._id} value={category._id}>{category.name}</option>
-          ))}
-        </select><AddCategory />
-      </div>
-      <div>
-        <input id='transactionIB' type="number" placeholder="Budget Amount" value={budgetAmount} onChange={(e) => setBudgetAmount(e.target.value)} required />
-      </div>
-      <div>
-        <input id='transactionIB' type="date" placeholder='Start Date' value={startDate} onChange={(e) => setStartDate(e.target.value)} required />
-      </div>
-      <div>
-        <input id='transactionIB' type="date" placeholder='End Date' value={endDate} onChange={(e) => setEndDate(e.target.value)} required />
-      </div><br />
-      {errorMessage && <p>{errorMessage}</p>}
-      <button id='transactionIB' onClick={refreshPage} type="submit">Add Budget</button>
-      </div>
-    </form>
-    )}
+        <form onSubmit={handleSubmit}> <br />
+          <div className="highlighted-form">
+            <div>
+              <select id='transactionIB' value={categoryId} onChange={(e) => setCategoryId(e.target.value)} required>
+                <option value="">{t('form.category')}</option>
+                {categories.map(category => (
+                  <option key={category._id} value={category._id}>{t(`transactionL.${category.name}`)}</option>
+                ))}
+              </select><AddCategory />
+            </div>
+            <div className='input-container'>
+              <input id='transactionIB' type="number" placeholder="" value={budgetAmount} onChange={(e) => setBudgetAmount(e.target.value)} />
+              <label class="labelB">{t('budget.amount')}</label>
+            </div>
+            <div className='input-container'>
+              <input id='transactionIB' type="date" placeholder='' value={startDate} onChange={(e) => setStartDate(e.target.value)} required />
+              <label class="labelB">{t('budget.start')}</label>
+            </div>
+            <div className='input-container'>
+              <input id='transactionIB' type="date" placeholder='' value={endDate} onChange={(e) => setEndDate(e.target.value)} required />
+              <label class="labelB">{t('budget.end')}</label>
+            </div><br />
+            {errorMessage && <p>{errorMessage}</p>}
+            <button id='transactionIB' onClick={refreshPage} type="submit">{t('form.addbudget')}</button>
+          </div><br />
+        </form>
+      )}
     </div>
   );
 };

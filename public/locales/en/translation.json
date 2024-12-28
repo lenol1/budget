@@ -1,0 +1,174 @@
+{
+  "login": {
+    "title": "Login",
+    "emailOrUsername": "Email or Username",
+    "password": "Password",
+    "confirm": "Confirm",
+    "or": "- or -",
+    "loginFailed": "Login Failed",
+    "internalServerError": "Internal server error"
+  },
+  "signup": {
+    "title": "Sign Up",
+    "firstname": "First Name",
+    "lastname": "Last Name",
+    "username": "Username*",
+    "email": "Email*",
+    "password": "Password*",
+    "confirmpassword": "Confirm Password*",
+    "confirm": "Confirm",
+    "loginFailed": "Login Failed",
+    "internalServerError": "Internal server error"
+  },
+  "linegraph": {
+    "category": "Category",
+    "startdate": "Start Date",
+    "enddate": "End Date",
+    "internalServerError": "Internal server error"
+  },
+  "header": {
+    "login": "Login",
+    "signup": "Sign Up",
+    "home": "Home",
+    "report": "Report",
+    "logout": "Log Out",
+    "changeTheme": "Change Theme"
+  },
+  "main": {
+    "transaction": "Transactions",
+    "goal": "Financial Goals",
+    "budget": "Budgets",
+    "total": "Total",
+    "bycategory": "By Categories",
+    "currency": "Currency Exchange Rates"
+  },
+  "form": {
+    "close": "Close Form",
+    "addbudget": "Add Budget",
+    "category": "Category",
+    "monobank": "Connect Monobank",
+    "monoconnection": "Follow the link and generate a token",
+    "token": "Monobank Token",
+    "tokenplace": "Paste token here",
+    "confirm": "Confirm",
+    "transaction": "Add Transaction",
+    "edittransaction": "Edit Transaction",
+    "addgoal": "New Financial Goal",
+    "save": "Save",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "loading": "Loading...",
+    "empty": "No Data"
+  },
+  "transaction": {
+    "account": "Account",
+    "amount": "Amount",
+    "currency": "Currency",
+    "type": "Payment type",
+    "cash": "Cash",
+    "card": "Card",
+    "category": "Category",
+    "description": "Description",
+    "date": "Date",
+    "action": "Actions",
+    "submit": "Add Transaction",
+    "more": "Show More Transactions",
+    "close": "Close Transactions",
+    "empty": "No Accounts Found"
+  },
+  "currency": {
+    "currency": "Currency",
+    "buy": "Buy Rate",
+    "sell": "Sell Rate",
+    "time": "Last Updated"
+  },
+  "goal": {
+    "goal": "Name",
+    "amount": "Amount",
+    "deadline": "Deadline",
+    "current": "Current Amount",
+    "addamount": "Amount to Add",
+    "add": "Add Goal",
+    "update": "Update Goal",
+    "overdue": "Overdue Since",
+    "end": "End Date",
+    "progress": "Progress",
+    "empty": "No Goals Available"
+  },
+  "category": {
+    "type": "Select Type",
+    "income": "Income",
+    "expense": "Expense",
+    "add": "Add",
+    "all": "All Categories",
+    "uknown": "Unknown"
+  },
+  "budget": {
+    "budget": "Budget",
+    "amount": "Budget Amount",
+    "start": "Start Date",
+    "end": "End Date",
+    "spent": "Spent",
+    "over": "Over Budget By",
+    "remain": "Remaining",
+    "total": "Total Spent",
+    "from": "From",
+    "to": "to",
+    "totalin": "Income",
+    "totalexp": "Expenses",
+    "months": "All Months",
+    "overuse": "Overused",
+    "underuse": "Underused",
+    "status": "Status",
+    "currentexp": "Current Expense",
+    "optimalexp": "Optimal Expense",
+    "empty": "No budgets available"
+  },
+  "account": {
+    "bank": "Bank Name",
+    "account": "Account №",
+    "balance": "Balance"
+  },
+  "analyse": {
+    "expense": "Expense Analysis",
+    "optresult": "Optimization Results",
+    "cost": "Total Cost",
+    "regresult": "Regression Results",
+    "intercept": "Intercept",
+    "coef": "Coefficient",
+    "predict": "Next Month's Predicted Expenses",
+    "amount": "Transaction Amounts",
+    "total": "Total",
+    "totalam": "Total Amount",
+    "top": "Top Spending Categories",
+    "category": "Category Expenses Overview",
+    "close": "Close"
+  },
+  "chart": {
+    "complete": "Completed",
+    "remain": "Remaining"
+  },
+  "transactionL": {
+    "Card Transaction": "Card Transaction",
+    "Cash Transaction": "Cash Transaction",
+    "Cash Payment": "Cash Payment",
+    "Cash payment": "Cash Payment",
+    "Card Payment": "Card Payment",
+    "Card payment": "Card Payment",
+    "Income Transaction": "Income Transaction",
+    "Coffee": "Coffee",
+    "Cosmetic": "Cosmetic",
+    "Food": "Food",
+    "Salary": "Salary",
+    "Book": "Book",
+    "Pet": "Pet",
+    "Transaction": "Transaction",
+    "Clothes": "Clothes",
+    "Hair Dying": "Hair Dying"
+  },
+  "theme":{
+    "dark":"Dark Theme",
+    "light":"Light Theme",
+    "contrast":"Contrast Theme"
+  }
+}

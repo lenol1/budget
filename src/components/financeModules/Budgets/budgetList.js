@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import PieChart from '../../charts/PieChart';
+import { useTranslation } from 'react-i18next';
 
 const Budgets = () => {
   const [budgets, setBudgets] = useState([]);
   const [accounts, setAccounts] = useState([]);
   const [editingBudgetId, setEditingBudgetId] = useState(null);
+  const { t } = useTranslation();
 
   const fetchBudgets = async () => {
     try {
@@ -63,7 +65,6 @@ const Budgets = () => {
       console.error('Error deleting budget:', error);
     }
   };
-
   useEffect(() => {
     fetchBudgets();
     fetchAccounts();
@@ -87,7 +88,7 @@ const Budgets = () => {
                   const isOverBudget = remainingAmount < 0;
 
                   const chartData = {
-                    labels: ['Spent', isOverBudget ? 'Over Budget' : 'Remaining'],
+                    labels: [t('budget.spent'), isOverBudget ? t('budget.over') : t('budget.remain')],
                     datasets: [{
                       data: [budget.totalSpent, Math.abs(remainingAmount)],
                       backgroundColor: [
@@ -102,27 +103,32 @@ const Budgets = () => {
                   return (
                     <tr key={budget._id} style={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.95)', backgroundColor: 'rgba(3, 111, 226, 0.05)' }}>
                       <td style={{ padding: '10px' }}>
-                        <h4>{budget.categoryName}: {budget.budgetAmount} UAH</h4>
-                        <p>Total Spent: {Math.round(budget.totalSpent*100)/100} UAH</p>
+                        <h4>{t(`transactionL.${budget.categoryName}`)}: {budget.budgetAmount} UAH</h4>
+                        <p>{t('budget.spent')}: {Math.round(budget.totalSpent * 100) / 100} UAH</p>
                         <p style={{ color: isOverBudget ? 'red' : 'white' }}>
-                          {isOverBudget ? `Over Budget by: ${Math.round(remainingAmount * 100)/100} UAH` : `Remaining: ${Math.round(remainingAmount*100)/100} UAH`}
+                          {isOverBudget ? t('budget.over') + ` ${-(Math.round(remainingAmount * 100) / 100)} UAH` : t('budget.remain') + `: ${Math.round(remainingAmount * 100) / 100} UAH`}
                         </p>
-                        <p>From {new Date(budget.startDate).toLocaleDateString()} to {new Date(budget.endDate).toLocaleDateString()}</p>
-                        <button style={{width:'10%', marginLeft:'10px', borderRadius:'5px'}} onClick={() => toggleFormVisibility(budget._id)}>{editingBudgetId === budget._id ? 'Close' : 'Edit'}</button>
-                        <button style={{width:'10%', marginLeft:'10px', borderRadius:'5px'}} onClick={() => deleteBudget(budget._id)}>Delete</button>
+                        <p>{t('budget.from')} {new Date(budget.startDate).toLocaleDateString()} {t('budget.to')} {new Date(budget.endDate).toLocaleDateString()}</p>
+                        <button style={{ width: '5%', marginTop: '10px', backgroundColor: 'transparent' }} onClick={() => toggleFormVisibility(budget._id)}>
+                          {editingBudgetId === budget._id ?
+                            <img src="/../materials/cancel.png" alt="cancel" style={{ width: '20px' }} /> :
+                            <img src="/../materials/edit.png" alt="edit" style={{ width: '20px' }} />}</button>
+                        <button style={{ width: '5%', marginLeft: '5px', backgroundColor: 'transparent' }} onClick={ () =>{deleteBudget(budget._id);}}>
+                          <img src="/../materials/delete.png" alt="delete" style={{ width: '20px' }} />
+                        </button>
                         {editingBudgetId === budget._id && (
                           <div>
-                            <input style={{width:'10%', marginLeft:'10px', borderRadius:'5px', textAlign:'center'}}
+                            <input style={{ width: '10%', marginLeft: '10px', borderRadius: '5px', textAlign: 'center' }}
                               type="number"
                               value={budget.budgetAmount}
                               onChange={(e) => updateBudget(budget._id, e.target.value, budget.startDate, budget.endDate)}
                             />
-                            <input style={{width:'12%', marginLeft:'10px', borderRadius:'5px', textAlign:'center'}}
+                            <input style={{ width: '12%', marginLeft: '10px', borderRadius: '5px', textAlign: 'center' }}
                               type="date"
                               value={new Date(budget.startDate).toISOString().substring(0, 10)}
                               onChange={(e) => updateBudget(budget._id, budget.budgetAmount, e.target.value, budget.endDate)}
                             />
-                            <input style={{width:'12%', marginLeft:'10px', borderRadius:'5px', textAlign:'center'}}
+                            <input style={{ width: '12%', marginLeft: '10px', borderRadius: '5px', textAlign: 'center' }}
                               type="date"
                               value={new Date(budget.endDate).toISOString().substring(0, 10)}
                               onChange={(e) => updateBudget(budget._id, budget.budgetAmount, budget.startDate, e.target.value)}
@@ -139,11 +145,11 @@ const Budgets = () => {
               </tbody>
             </table>
           ) : (
-            <p>No budgets available</p>
+            <p>{t('budget.empty')}</p>
           )}
         </div>
       ) : (
-        <p>No accounts available</p>
+        <p>{t('transaction.empty')}</p>
       )}
     </div>
   );

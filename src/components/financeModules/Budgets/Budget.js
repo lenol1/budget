@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Doughnut } from 'react-chartjs-2';
+import { useTranslation } from 'react-i18next';
 
 const Budget = () => {
   const [categories, setCategories] = useState([]);
@@ -8,41 +9,14 @@ const Budget = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedMonth, setSelectedMonth] = useState('');
+  const { t } = useTranslation();
 
-  useEffect(() => {
-    fetchAccounts();
-    fetchCategories();
-  }, []);
-
-  const fetchAccounts = async () => {
-    try {
-      const response = await fetch('http://localhost:5000/api/accounts');
-      const data = await response.json();
-      setAccounts(data);
-      console.log(accounts);
-      fetchTransactions();
-    } catch (error) {
-      console.error('Error fetching accounts:', error);
-      setError('Error fetching accounts');
-    }
-  };
-  const fetchCategories = async () => {
-    try {
-      const response = await fetch('http://localhost:5000/api/categories');
-      const data = await response.json();
-      setCategories(data);
-    } catch (error) {
-      console.error('Error fetching categories:', error);
-      setError('Error fetching categories');
-    }
-  };
-
-  const fetchTransactions = async () => {
+  const fetchTransactions = useCallback(async (accounts) => {
     try {
       const response = await fetch('http://localhost:5000/api/transactions');
       const data = await response.json();
       const filteredTransactions = data.filter(transaction =>
-        accounts.every(account => account._id === transaction.accountId)
+        accounts.some(account => account._id === transaction.accountId)
       );
       setTransactions(filteredTransactions);
       setLoading(false);
@@ -51,7 +25,37 @@ const Budget = () => {
       setError('Error fetching transactions');
       setLoading(false);
     }
-  };
+  }, []);
+
+  const fetchAccounts = useCallback(async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/accounts');
+      const data = await response.json();
+      setAccounts(data);
+      console.log(data);
+      fetchTransactions(data);
+    } catch (error) {
+      console.error('Error fetching accounts:', error);
+      setError('Error fetching accounts');
+    }
+  }, [fetchTransactions]);
+
+  const fetchCategories = useCallback(async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/categories');
+      const data = await response.json();
+      setCategories(data);
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+      setError('Error fetching categories');
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchAccounts();
+    fetchCategories();
+  }, [fetchAccounts, fetchCategories]);
+
   const getMonthTransactions = (month) => {
     if (month === "") {
       return transactions;
@@ -80,11 +84,11 @@ const Budget = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>{t('form.loading')}</div>;
   }
 
   if (error) {
-    return <div style={{color:'white'}}>No data</div>;
+    return <div style={{ color: 'white' }}>{t('form.empty')}</div>;
   }
 
   const hasAccounts = accounts.length > 0;
@@ -103,7 +107,7 @@ const Budget = () => {
   const isOverBudget = totalExpenses > totalIncome;
 
   const chartData = {
-    labels: ['Доходи', 'Витрати'],
+    labels: [t('category.income'), t('category.expense')],
     datasets: [{
       data: [totalIncome, totalExpenses],
       backgroundColor: isOverBudget ? ['rgb(255, 99, 132)', 'rgb(255, 0, 0)'] : ['rgb(54, 162, 235)', 'rgb(255, 99, 132)'],
@@ -127,22 +131,22 @@ const Budget = () => {
           <tbody>
             <tr>
               <td style={{ padding: '10px' }}>
-                <p>Total Income: {totalIncome} UAH</p>
-                <p>Total Expenses: {Math.round(totalExpenses * 100)/100} UAH</p>
-                {isOverBudget && <p style={{ color: 'red' }}>Over Budget by: {Math.round((totalExpenses - totalIncome) * 100)/100} UAH</p>}<br />
+                <p>{t('budget.totalin')}: {totalIncome} UAH</p>
+                <p>{t('budget.totalexp')}: {Math.round(totalExpenses * 100) / 100} UAH</p>
+                {isOverBudget && <p style={{ color: 'red' }}>{t('budget.over')}: {Math.round((totalExpenses - totalIncome) * 100) / 100} UAH</p>}<br />
                 <select value={selectedMonth} onChange={handleMonthChange}>
-                  <option value="">All Months</option>
+                  <option value="">{t('budget.months')}</option>
                   {monthOptions}
                 </select>
               </td>
               <td style={{ width: '200px', padding: '10px' }}>
-                <Doughnut data={chartData} options={chartOptions} width={'100px'} height={'100px'}/>
+                <Doughnut data={chartData} options={chartOptions} width={'100px'} height={'100px'} />
               </td>
             </tr>
           </tbody>
         </table>
       ) : (
-        <p>No accounts available</p>
+        <p>{t('transaction.empty')}</p>
       )}
     </div>
   );

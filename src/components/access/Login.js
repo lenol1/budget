@@ -49,16 +49,19 @@ const Login = () => {
   }
 
   return (
-    <div id="main"><br/> <br/>
+    <div id="main"><br /> <br />
       <h1 id='title'>{t('login.title')}</h1><br></br>
       <form name="regForm">
-        <input type="text" name="login" id="regforms"
-          placeholder={t('login.emailOrUsername')} value={login}
-          onChange={(e) => setLogin(e.target.value)} required /><br></br>
-
-        <input type="password" name="password_" id="regforms"
-          placeholder={t('login.password')} value={password}
-          onChange={(e) => setPassword(e.target.value)} required /><br></br>
+        <div className="input-container">
+          <input type="text" name="login" id="regforms" value={login}
+            onChange={(e) => setLogin(e.target.value)} required placeholder="" />
+          <label for="login" class="labelL">{t('login.emailOrUsername')}</label>
+        </div><br></br>
+        <div className="input-container">
+          <input type="password" name="password_" id="regforms" value={password}
+            onChange={(e) => setPassword(e.target.value)} required placeholder="" />
+          <label for="password_" class="labelL">{t('login.password')}</label>
+        </div><br></br>
         <button type='submit' id="regforms" onClick={handleLogin}>{t('login.confirm')}</button><br></br>
         <h3>{t('login.or')}</h3><br></br>
 
@@ -68,8 +71,10 @@ const Login = () => {
             onError={() => {
               console.log(t('login.loginFailed'));
             }} />
-        </div><br />
-        {errorMessage && <p>{errorMessage}</p>}
+        </div>
+        <div style={{ minHeight: '20px', textAlign: 'center', marginTop: '5px' }}>
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
+        </div>
       </form>
     </div>
   );

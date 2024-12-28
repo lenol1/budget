@@ -6,83 +6,96 @@
   padding: 2em 2em 2em;
   border-radius: 2em;
 }
-#mainHComponents{
+
+#mainHComponents {
   font-size: 18px;
   display: flex;
   width: 90%;
   position: absolute;
-  justify-content:space-around;
-  align-items:center;
+  justify-content: space-around;
+  align-items: center;
 }
-#main{
-  background: rgba(0, 0, 0, .9);
-  margin: 20px auto;
-  width: 90%;
-  height: 80%;
-  padding: 0em 2em 2em;
-  border-radius: 2em;
-  white-space: nowrap;
-  background-image:
-  url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='100px' width='200px'><text x='10' y='60' fill='black' font-size='28' font-family='Mixed Breed Regular' transform='skewX(-20) rotate(-15)'>SaveySavvy</text></svg>"); 
-}
-h1,h2,h3,h4, p, label{
+
+h1,
+h2,
+h3,
+h4,
+p,
+label {
   color: white;
   margin: 0 auto;
 }
-#link, a{
+
+#link,
+a {
   text-decoration: none;
 }
-#link:hover, a{
-  text-decoration:underline;
+
+#link:hover,
+a {
+  text-decoration: underline;
   color: white;
 }
-#title{
-  text-align: center; 
-  width: 200px; 
+
+#title {
+  text-align: center;
+  width: 200px;
   margin: 0 auto;
 }
-button{
+
+button {
   width: 27%;
   border-color: aliceblue;
-  white-space: nowrap; 
-  overflow: hidden; 
+  white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
-  box-sizing: border-box; 
+  box-sizing: border-box;
 }
-input{
+
+input {
   width: 25%;
 }
-#button{
+
+#button {
   margin: 0 0 0 39%;
   width: 27%;
 }
-#regforms{
+
+#regforms {
   padding: 10px;
   font-size: 17px;
   font-weight: 800;
   border-radius: 5px;
   margin: 0 auto;
 }
-#regforms_{
+
+#regforms_ {
   padding: 10px;
   font-size: 17px;
   font-weight: 800;
   border-radius: 5px;
-  margin: 0 0 0 28%;
-  width: 40%;
+  margin: 0 0 0 35%;
+  align-self: center;
+  width: 350px;
 }
-input, button, select{
+
+input,
+button,
+select {
   border: none;
   background-color: rgb(50, 50, 50);
   color: rgb(255, 255, 255);
 }
-form{
+
+form {
   display: flex;
   flex-direction: column;
 }
+
 #header #link {
   margin: 0 15px;
 }
+
 .language-buttons button {
   background-color: transparent;
   border: none;
@@ -96,18 +109,290 @@ form{
   position: fixed;
   right: 5%;
 }
-.language-buttons button:hover{
+
+.language-buttons button:hover {
   background-color: cadetblue;
 }
+
 ::-webkit-scrollbar {
   width: 15px;
 }
+
 ::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+  background: #f1f1f1;
 }
+
 ::-webkit-scrollbar-thumb {
-  background: rgba(3, 80, 161, 0.486); 
+  background: rgba(3, 80, 161, 0.486);
 }
+
 ::-webkit-scrollbar-thumb:hover {
-  background: #555; 
+  background: #555;
+}
+
+body {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+body.light {
+  background-color: #f5f5f5;
+  color: #333333;
+}
+
+body.dark {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+body.contrast {
+  background-color: #000000;
+  color: #ffff00;
+  font-weight: bold;
+}
+.theme-switcher {
+  position: fixed;
+  top: 85%;
+  right: -25px;
+  transform: translateY(-50%);
+  border-right: none;
+  padding: 10px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.theme-switcher button {
+  display: block; 
+  margin: 10px 0; 
+  margin-right: 10px;
+  padding: 1px;
+  padding-right: 4px;
+  background-color: rgba(0, 0, 0, .9);
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  width: 70%;
+}
+
+.theme-switcher button:hover {
+  background-color: #e0e0e0;
+}
+
+.theme-switcher button:active {
+  background-color: #d0d0d0;
+}
+.tableStyle{
+  color: #f1f1f1;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+body {
+  margin: 0;
+  padding: 0;
+  transition: background 0.3s, color 0.3s;
+}
+#main {
+  background: rgba(0, 0, 0, .9);
+  margin: 15px auto;
+  width: 90%;
+  height: 80%;
+  padding: 0em 2em 1.5em;
+  border-radius: 2em;
+  white-space: nowrap;
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='100px' width='200px'><text x='10' y='60' fill='black' font-size='28' font-family='Mixed Breed Regular' transform='skewX(-20) rotate(-15)'>SaveySavvy</text></svg>");
+  }
+
+body.dark #main {
+  background: rgba(255, 255, 255, 0.6);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='100px' width='200px'><text x='10' y='60' fill='gray' font-size='28' font-family='Mixed Breed Regular' transform='skewX(-20) rotate(-15)'>SaveySavvy</text></svg>");
+  color: white;
+}
+
+body.light #main {
+  background: rgba(0, 0, 0, 0.9);
+  background-image:
+  url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='100px' width='200px'><text x='10' y='60' fill='black' font-size='28' font-family='Mixed Breed Regular' transform='skewX(-20) rotate(-15)'>SaveySavvy</text></svg>");
+  color: black;
+}
+
+body.contrast #main {
+  background: rgb(255, 255, 0, 0.5);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='100px' width='200px'><text x='10' y='60' fill='yellow' font-size='28' font-family='Mixed Breed Regular' transform='skewX(-20) rotate(-15)'>SaveySavvy</text></svg>");
+  color: rgb(0, 0, 255, 0.3);
+}
+
+/* Загальні стилі */
+#header,
+#mainHComponents,
+h1,
+h2,
+h3,
+h4,
+p,
+label,
+#link,
+a,
+button,
+input,
+form,
+#regforms,
+#regforms_,
+.language-buttons button {
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
+}
+
+/* Світла тема */
+body.light {
+  background-color: #ffffff;
+}
+
+body.light #header {
+  background: rgba(0, 0, 0, .9);
+}
+
+body.light h1,
+body.light h2,
+body.light h3,
+body.light h4,
+body.light p,
+body.light label {
+  color: #ffffff;
+}
+
+body.light #mainHComponents {
+  color: #000000;
+}
+
+body.light button,
+body.light input {
+  background-color: rgb(50, 50, 50);
+  color: rgb(255, 255, 255);
+  border-color: none;
+}
+
+body.light #link,
+body.light a {
+  color: #0000ff;
+}
+
+body.light #link:hover,
+body.light a:hover {
+  color: #0056b3;
+}
+
+body.light .language-buttons button {
+  color: #ffffff;
+}
+
+body.light ::-webkit-scrollbar-thumb {
+  background: rgba(3, 111, 226, 0.4);
+}
+
+/* Темна тема */
+body.dark {
+  background-color: #121212;
+}
+
+body.dark #header {
+  background: rgb(255, 255, 255, 0.7);
+}
+
+body.dark h1,
+body.dark h2,
+body.dark h3,
+body.dark h4,
+body.dark p,
+body.dark label {
+  color: #121212;
+}
+
+body.dark #mainHComponents {
+  color: #121212;
+}
+
+body.dark button,
+body.dark input {
+  background-color: rgb(30, 30, 30);
+  color: rgb(200, 200, 200);
+  border: none;
+}
+
+body.dark #link,
+body.dark a {
+  color: #80d4ff;
+}
+
+body.dark #link:hover,
+body.dark a:hover {
+  color: #1eb1f6;
+}
+
+body.dark .language-buttons button {
+  color: #e0e0e0;
+}
+
+body.dark ::-webkit-scrollbar-thumb {
+  background: rgba(80, 80, 80, 0.6);
+}
+body.dark .tableStyle {
+  color: #000000; /* Чорний текст для кращої видимості */
+  background-color: rgb(255, 255, 255, 0.8); /* Білий фон таблиці */
+  border: 1px solid #cccccc; /* Світло-сірі межі */
+}
+
+/* Контрастна тема */
+body.contrast {
+  background-color: #000000;
+}
+
+body.contrast #header {
+  background: rgb(255, 225, 0, 0.9);
+}
+
+body.contrast h1,
+body.contrast h2,
+body.contrast h3,
+body.contrast h4,
+body.contrast p{
+  color:rgb(0, 0, 0);
+}
+body.contrast label {
+  color: #ffcc00;
+}
+body.contrast #mainHComponents {
+  color: #ffffff;
+}
+
+body.contrast button,
+body.contrast input,
+body.contrast select {
+  background-color: #000000;
+  color: #ffcc00;
+  border: 2px solid #ffcc00;
+}
+
+body.contrast #link,
+body.contrast a {
+  color: rgb(0, 0, 0);
+}
+
+body.contrast #link:hover,
+body.contrast a:hover {
+  color: #ff9900;
+}
+
+body.contrast .language-buttons button {
+  color: #ffcc00;
+}
+
+body.contrast ::-webkit-scrollbar-thumb {
+  background: rgb(0, 0, 0);
+}
+body.contrast .tableStyle {
+  color: #ffcc00; 
+  background-color: rgb(0, 0, 0, 0.9); 
+  border: 2px solid #ffcc00; 
 }

@@ -3,7 +3,7 @@ const {get_objectId} = require('../storage/get_setObject');
 
 const getBudgetById = async (req, res) => {
   try {
-    const budget = await Budget.findById(req.params.id).populate('category');
+    const budget = await Budget.findById(req.params.id).populate('categoryId');
     if (!budget) {
       return res.status(404).json({ message: 'Budget not found' });
     }

@@ -45,7 +45,7 @@ app.post('/api/regression', (req, res) => {
 
       res.json({ intercept, coefficients });
   } catch (error) {
-      console.error('Regression Error:', error); // Log error to the server console
+      console.error('Regression Error:', error);
       res.status(500).json({ error: 'Internal server error' });
   }
 });

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Pie } from 'react-chartjs-2';
 import 'chart.js/auto';
+import { useTranslation } from 'react-i18next';
 
 const Goals = () => {
   const [goals, setGoals] = useState([]);
@@ -15,6 +16,7 @@ const Goals = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isFormVisible, setIsFormVisible] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     fetchGoals();
@@ -43,7 +45,7 @@ const Goals = () => {
         body: JSON.stringify({ goal, amount, endDate, currentAmount: 0 })
       });
       if (response.ok) {
-        fetchGoals(); // Оновлюємо список цілей після додавання нової
+        fetchGoals();
         clearForm();
       } else {
         console.error('Error adding goal');
@@ -63,7 +65,7 @@ const Goals = () => {
         body: JSON.stringify(updatedGoal)
       });
       if (response.ok) {
-        fetchGoals(); // Оновлюємо список цілей після оновлення
+        fetchGoals();
         clearForm();
       } else {
         console.error('Error updating goal');
@@ -97,7 +99,7 @@ const Goals = () => {
         body: JSON.stringify({ ...goal, currentAmount: newCurrentAmount })
       });
       if (response.ok) {
-        fetchGoals(); // Оновлюємо список цілей після оновлення
+        fetchGoals();
         setAddingAmount(false);
         setAmountToAdd('');
         setSelectedGoal(null);
@@ -159,43 +161,55 @@ const Goals = () => {
 
   return (
     <div>
-      <button  id='transactionForms' onClick={toggleFormVisibility}>
-        {isFormVisible ? 'Close Form' : 'New Financial Goal'}
+      <button id='transactionForms' onClick={toggleFormVisibility}>
+        {isFormVisible ? t('form.close') : t('form.addgoal')}
       </button>
-      <br /><br/>
+      <br /><br />
       {isFormVisible && (
         <form onSubmit={handleSubmit} style={{ marginBottom: '20px', backgroundColor: 'rgba(3, 111, 226, 0.05)' }}>
-          <input id='transactionIB' 
-            type="text"
-            placeholder="Goal"
-            value={goal}
-            onChange={(e) => setGoal(e.target.value)}
-            required
-          />
-          <input id='transactionIB' 
-            type="number"
-            placeholder="Amount"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            required
-          />
-          <input id='transactionIB' 
+          <div className="input-container">
+            <input id='transactionIB'
+              type="text"
+              placeholder=""
+              value={goal}
+              onChange={(e) => setGoal(e.target.value)}
+              required
+            />
+            <label for="transactionIB" class="labelA">{t('goal.goal')}</label>
+          </div>
+          <div className="input-container">
+            <input id='transactionIB'
+              type="number"
+              placeholder=""
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              required
+            />
+            <label for="transactionIB" class="labelA">{t('goal.amount')}</label>
+          </div>
+          <div className="input-container">
+          <input id='transactionIB'
             type="date"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
             required
           />
+          <label for="transactionIB" class="labelA">{t('transaction.date')}</label>
+          </div>
           {editingGoal && (
-            <input id='transactionIB' 
-              type="number"
-              placeholder="Current Amount"
-              value={currentAmount}
-              onChange={(e) => setCurrentAmount(e.target.value)}
-              required
-            />
-          )}
-          <button id='transactionIB'  type="submit">{editingGoal ? 'Update Goal' : 'Add Goal'}</button>
-          {editingGoal && <button type="button" id='transactionIB'  onClick={handleCancelEdit}>Cancel</button>}
+            <div className="input-container">
+              <input id='transactionIB'
+                type="number"
+                placeholder=""
+                value={currentAmount}
+                onChange={(e) => setCurrentAmount(e.target.value)}
+                required
+              />
+              <label for="transactionIB" class="labelA">{t('goal.current')}</label>
+            </div>
+          )}<br />
+          <button id='transactionIB' type="submit">{editingGoal ? t('goal.update') : t('goal.add')}</button>
+          {editingGoal && <button type="button" id='transactionIB' onClick={handleCancelEdit}>{t('form.cancel')}</button>}
         </form>
       )}
       {goals.length > 0 ? (
@@ -206,7 +220,7 @@ const Goals = () => {
               const isOverdue = new Date(goal.endDate) < new Date();
 
               const chartData = {
-                labels: ['Completed', 'Remaining'],
+                labels: [t('chart.complete'), t('chart.remain')],
                 datasets: [{
                   data: [goal.currentAmount, goal.amount - goal.currentAmount],
                   backgroundColor: ['rgb(54, 162, 235)', 'rgb(255, 99, 132)'],
@@ -219,42 +233,49 @@ const Goals = () => {
                 <tr key={goal._id} style={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.95)', backgroundColor: 'rgba(3, 111, 226, 0.05)' }}>
                   <td style={{ padding: '10px' }}>
                     <h4>{goal.goal}: {goal.amount}</h4>
-                    <p>Current Amount: {goal.currentAmount}</p>
+                    <p>{t('goal.current')}: {goal.currentAmount}</p>
                     <p style={{ color: isOverdue ? 'red' : 'white' }}>
-                      {isOverdue ? `Overdue since: ${new Date(goal.endDate).toLocaleDateString()}` : `End Date: ${new Date(goal.endDate).toLocaleDateString()}`}
+                      {isOverdue ? t('goal.overdue') + `: ${new Date(goal.endDate).toLocaleDateString()}` : t('goal.end') + `: ${new Date(goal.endDate).toLocaleDateString()}`}
                     </p>
-                    <p>Progress: {progress.toFixed(2)}%</p>
-                    <button style={{width:'10%',  borderRadius:'5px'}} onClick={() => handleEdit(goal)}>Edit</button>
-                    <button style={{width:'10%', marginLeft:'10px', borderRadius:'5px'}} onClick={() => deleteGoal(goal._id)}>Delete</button>
-                    <button style={{width:'10%', marginLeft:'10px', borderRadius:'5px'}} onClick={() => {
+                    <p>{t('goal.progress')}: {progress.toFixed(2)}%</p>
+                    <button style={{ width: '5%', marginTop: '20px', backgroundColor: "transparent" }} onClick={() => handleEdit(goal)}>
+                      <img src="/../materials/edit.png" alt="edit" style={{ width: '20px' }} />
+                    </button>
+                    <button style={{ width: '5%', marginLeft: '10px', backgroundColor: "transparent" }} onClick={() => deleteGoal(goal._id)}>
+                      <img src="/../materials/delete.png" alt="delete" style={{ width: '20px' }} />
+                    </button>
+                    <button style={{ width: '5%', marginLeft: '10px', backgroundColor: "transparent" }} onClick={() => {
                       setAddingAmount(true);
                       setSelectedGoal(goal._id);
                     }}>
-                      Add Amount
+                      <img src="/../materials/add.png" alt="add" style={{ width: '20px' }} />
                     </button>
                     {addingAmount && selectedGoal === goal._id && (
                       <form onSubmit={(e) => {
                         e.preventDefault();
                         addAmountToGoal(goal._id, amountToAdd);
                       }}><td>
-                        <input style={{width:'12%',  borderRadius:'5px', textAlign:'center'}}
-                          type="number"
-                          placeholder="Amount to Add"
-                          value={amountToAdd}
-                          onChange={(e) => setAmountToAdd(e.target.value)}
-                          required
-                        />
-                        <button style={{width:'12%',  borderRadius:'5px', marginLeft:'5px'}} type="submit">Submit</button>
-                        <button style={{width:'12%',  borderRadius:'5px' , marginLeft:'5px'}} type="button" onClick={() => {
-                          setAddingAmount(false);
-                          setSelectedGoal(null);
-                          setAmountToAdd('');
-                        }}>Cancel</button></td>
+                          <div className="input-container">
+                            <input style={{ width: '15%', borderRadius: '5px', textAlign: 'right', marginTop: '5px', height: '17px' }}
+                              type="number"
+                              placeholder=""
+                              value={amountToAdd}
+                              onChange={(e) => setAmountToAdd(e.target.value)}
+                              required
+                            />
+                            <label class="labelG">{t('goal.addamount')}</label>
+                          </div>
+                          <button style={{ width: '15%', borderRadius: '5px' }} type="submit">{t('form.submit')}</button>
+                          <button style={{ width: '15%', borderRadius: '5px', marginLeft: '5px' }} type="button" onClick={() => {
+                            setAddingAmount(false);
+                            setSelectedGoal(null);
+                            setAmountToAdd('');
+                          }}>{t('form.cancel')}</button></td>
                       </form>
                     )}
                   </td>
                   <td style={{ width: '200px', padding: '10px' }}>
-                    <Pie data={chartData} width={'100px'} height={'100px'}/>
+                    <Pie data={chartData} width={'100px'} height={'100px'} />
                   </td>
                 </tr>
               );
@@ -262,7 +283,7 @@ const Goals = () => {
           </tbody>
         </table>
       ) : (
-        <p>No goals available</p>
+        <p>{t('goal.empty')}</p>
       )}
     </div>
   );

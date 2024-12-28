@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const AddGoal = ({ onGoalAdded }) => {
   const [goal, setGoal] = useState('');
   const [amount, setAmount] = useState('');
   const [deadline, setDeadline] = useState('');
   const [message, setMessage] = useState('');
+  const { t } = useTranslation();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -39,7 +41,7 @@ const AddGoal = ({ onGoalAdded }) => {
     <div>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="goal">Goal</label>
+          <label htmlFor="goal">{t('goal.goal')}</label>
           <input
             type="text"
             id="goal"
@@ -48,7 +50,7 @@ const AddGoal = ({ onGoalAdded }) => {
           />
         </div>
         <div>
-          <label htmlFor="amount">Amount</label>
+          <label htmlFor="amount">{t('goal.amount')}</label>
           <input
             type="number"
             id="amount"
@@ -56,8 +58,8 @@ const AddGoal = ({ onGoalAdded }) => {
             onChange={(e) => setAmount(e.target.value)}
           />
         </div>
-        <div>
-          <label htmlFor="deadline">Deadline</label>
+        <div className="input-container">
+          <label htmlFor="deadline">{t('goal.deadline')}</label>
           <input
             type="date"
             id="deadline"
@@ -65,7 +67,7 @@ const AddGoal = ({ onGoalAdded }) => {
             onChange={(e) => setDeadline(e.target.value)}
           />
         </div>
-        <button type="submit">Add Goal</button>
+        <button type="submit">{t('goal.add')}</button>
       </form>
       {message && <p>{message}</p>}
     </div>

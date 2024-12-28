@@ -120,6 +120,7 @@ const updateTransactionAmount = async (req, res) => {
     }
 
     transaction.amount = amount;
+    transaction.updatedAt = Date.now();
 
     await transaction.save();
 

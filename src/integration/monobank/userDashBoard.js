@@ -9,7 +9,7 @@ const currencyCodes = {
 
 const UserDashboard = ({ token }) => {
     const [userInfo, setUserInfo] = useState(null);
-    const [transactions, setTransactions] = useState([]);
+    const [Transactions, setTransactions] = useState([]);
     const [allTransactions, setAllTransactions] = useState([]);
     const [selectedAccount, setSelectedAccount] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("");
@@ -19,7 +19,7 @@ const UserDashboard = ({ token }) => {
     const [categories, setCategories] = useState([]);
     const [accounts, setAccounts] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [transactionToEdit, setTransactionToEdit] = useState(null);
+    const [TransactionToEdit,setTransactionToEdit] = useState(null);
     const currentDate = new Date();
 
     useEffect(() => {
@@ -68,7 +68,7 @@ const UserDashboard = ({ token }) => {
             let accountIds = selectedAccount ? [selectedAccount] : userInfo.accounts.map(account => account.id);
             const accountTransactionsResponse = await monobankApiClient.getUserAllTransactionsAsync(token, accountIds, from, to);
             let filteredTransactions = accountTransactionsResponse.data;
-
+            console.log(Transactions);
             if (selectedCategory) {
                 filteredTransactions = filteredTransactions.filter(transaction => transaction.category === selectedCategory);
             }
@@ -85,11 +85,11 @@ const UserDashboard = ({ token }) => {
                 const regex = /(.+) - (.+)/;
 
                 const matches = (transaction.accountId).match(regex);
-                let account = accounts.find(account => account.name === transaction.accountName||account.bankName === transaction.bankName);
+                let account = accounts.find(account => account.name === transaction.accountName || account.bankName === transaction.bankName);
                 if (matches) {
-                    const accountNumber = matches[1]; 
-                    const bankName = matches[2]; 
-                    account = accounts.find(account => account.name === accountNumber||account.bankName === bankName);
+                    const accountNumber = matches[1];
+                    const bankName = matches[2];
+                    account = accounts.find(account => account.name === accountNumber || account.bankName === bankName);
                 } else {
                     console.error("Unable to parse account ID");
                 }
@@ -130,8 +130,7 @@ const UserDashboard = ({ token }) => {
 
     const handleCategoryChange = (e) => {
         setSelectedCategory(e.target.value);
-    };
-
+    }
     const handleTimeframeChange = (e) => {
         setTimeframe(e.target.value);
     };
@@ -155,6 +154,7 @@ const UserDashboard = ({ token }) => {
     const handleSaveData = () => {
         setIsModalOpen(true);
         setTransactionToEdit(0);
+        console.log(TransactionToEdit);
     };
 
     const handleModalSave = () => {
@@ -186,10 +186,10 @@ const UserDashboard = ({ token }) => {
     }
 
     return (
-        <div style={{backgroundColor:'rgba(3, 111, 226, 0.1)', borderRadius:'8px'}}><br/>
-            <h2 style={{textAlign:'center'}}>User Dashboard</h2>
-            <h3 style={{textAlign:'center'}}>Name: {userInfo.name}</h3>
-            <h3 style={{padding:'0px 20px'}}>Accounts:</h3>
+        <div style={{ backgroundColor: 'rgba(3, 111, 226, 0.1)', borderRadius: '8px' }}><br />
+            <h2 style={{ textAlign: 'center' }}>User Dashboard</h2>
+            <h3 style={{ textAlign: 'center' }}>Name: {userInfo.name}</h3>
+            <h3 style={{ padding: '0px 20px' }}>Accounts:</h3>
             <ul style={{ color: 'white' }}>
                 {userInfo.accounts.map(account => (
                     <li key={account.id}>
@@ -197,8 +197,8 @@ const UserDashboard = ({ token }) => {
                     </li>
                 ))}
             </ul>
-            <label htmlFor="accountSelect" style={{padding:'0px 0px 0px 20px'}}>Select Account:</label>
-            <select value={selectedAccount} onChange={handleAccountChange}>
+            <h3 htmlFor="accountSelect" style={{ padding: '0px 0px 0px 20px' }}>Select Account:</h3>
+            <select style={{marginLeft:'20px'}} value={selectedAccount} onChange={handleAccountChange}>
                 <option value=""> All Accounts </option>
                 {userInfo.accounts.map(account => (
                     <option key={account.id} value={account.id}>
@@ -206,18 +206,18 @@ const UserDashboard = ({ token }) => {
                     </option>
                 ))}
             </select>
-            <label htmlFor="timeframeSelect">| Select Timeframe (from 1 up to 31 days): </label>
-            <input style={{width:'40px', marginRight:'10px', padding:'0px 0px 0px 5px', borderRadius:'3px',}}
-                id="timeframeSelect" 
-                type="number" 
-                value={timeframe} 
-                onChange={handleTimeframeChange} 
-                min="1" 
-                max="30" 
+            <h3 htmlFor="timeframeSelect" style={{ padding: '0px 0px 0px 20px' }}> Select Timeframe (from 1 up to 31 days): </h3>
+            <input style={{ width: '40px', marginRight: '10px', marginLeft:'20px',padding: '0px 0px 0px 5px', borderRadius: '3px', }}
+                id="timeframeSelect"
+                type="number"
+                value={timeframe}
+                onChange={handleTimeframeChange}
+                min="1"
+                max="30"
             />
-            <button style={{width:'20%', borderRadius:'3px'}} onClick={handleFetchTransactions}> Fetch Transactions</button><br/>
-            <h2 style={{padding:'0px 20px'}}>Transactions:</h2>
-            <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px', color:'white' }}>
+            <button style={{ width: '20%', borderRadius: '3px' }} onClick={handleFetchTransactions}> Fetch Transactions</button><br />
+            <br/><h2 style={{ padding: '0px 20px' }}>Transactions:</h2>
+            <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px', color: 'white' }}>
                 <thead>
                     <tr style={{ backgroundColor: 'rgba(3, 111, 226, 0.1)' }}>
                         <th id='transactionsList'>Amount</th>
@@ -242,40 +242,38 @@ const UserDashboard = ({ token }) => {
             )}
             {visibleTransactions > 10 && (
                 <button onClick={() => setVisibleTransactions(10)}>Close Transactions</button>
-            )}<br/>
-            <button onClick={handleSaveData} style={{width:'15%', borderRadius:'3px', marginLeft:'5px', marginBottom:'20px',border:'1px solid white'}} > Save Data</button><br/>
+            )}<br />
+            <button onClick={handleSaveData} style={{ width: '15%', borderRadius: '3px', marginLeft: '5px', marginBottom: '20px', border: '1px solid white' }} > Save Data</button><br />
 
             {isModalOpen && (
                 <div className="modal" style={modalStyle}>
                     <div className="modal-content" style={modalContentStyle}>
-                        <h2 style={{color:'black', textDecoration:'underline'}}>Select Account and Category for Each Transaction</h2>
-                        <div style={{maxHeight: '400px', overflowY: 'auto'}}><br/>
+                        <h2 style={{ color: 'black', textDecoration: 'underline' }}>Select Account and Category for Each Transaction</h2>
+                        <div style={{ maxHeight: '400px', overflowY: 'auto' }}><br />
                             {allTransactions.map((transaction, index) => (
                                 <div key={transaction.id} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-                                <p style={{ color: 'black', flex: '1', marginRight: '10px', minWidth: '30%' }}>{transaction.description}: {parseFloat(transaction.amount / 100)} {getCurrencySymbol(transaction.currencyCode)}</p>
-                                <select style={{ flex: '1', borderRadius: '5px', marginRight: '5px', minWidth: '10%' }} value={transaction.accountId} onChange={(e) => handleAccountSelectChange(e, index)}>
-                                    <option value="">Select Account</option>
-                                    {accounts.map(account => (
-                                        <option key={account.id} value={account.id}>
-                                            {( account.accountNumber|| account.bankName) + ' - ' + ( account.bankName ||account.accountNumber )}
-                                        </option>
-                                    ))}
-                                </select>
-                                <select style={{ flex: '1', marginLeft: '5px', borderRadius: '5px', minWidth: '10%' }} value={transaction.category || ""} onChange={(e) => handleCategorySelectChange(e, index)}>
-                                    <option value="">Select Category</option>
-                                    {categories.map(category => (
-                                        <option key={category.id} value={category.id}>
-                                            {category.name}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-                            
-                            
-                            ))}<br/>
-                        </div><br/>
-                        <button style={{borderRadius:'5px', width:'10%'}} onClick={handleModalSave}>Save</button>
-                        <button style={{borderRadius:'5px', width:'10%', marginLeft:'24px'}} onClick={handleModalClose}>Close</button>
+                                    <p style={{ color: 'black', flex: '1', marginRight: '10px', minWidth: '30%' }}>{transaction.description}: {parseFloat(transaction.amount / 100)} {getCurrencySymbol(transaction.currencyCode)}</p>
+                                    <select style={{ flex: '1', borderRadius: '5px', marginRight: '5px', minWidth: '10%' }} value={transaction.accountId} onChange={(e) => handleAccountSelectChange(e, index)}>
+                                        <option value="">Select Account</option>
+                                        {accounts.map(account => (
+                                            <option key={account.id} value={account.id}>
+                                                {(account.accountNumber || account.bankName) + ' - ' + (account.bankName || account.accountNumber)}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <select style={{ flex: '1', marginLeft: '5px', borderRadius: '5px', minWidth: '10%' }} value={transaction.category || ""} onChange={(e) => handleCategorySelectChange(e, index)}>
+                                        <option value="">Select Category</option>
+                                        {categories.map(category => (
+                                            <option key={category.id} value={category.id}>
+                                                {category.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                            ))}<br />
+                        </div><br />
+                        <button style={{ borderRadius: '5px', width: '10%' }} onClick={handleModalSave}>Save</button>
+                        <button style={{ borderRadius: '5px', width: '10%', marginLeft: '24px' }} onClick={handleModalClose}>Close</button>
                     </div>
                 </div>
             )}
@@ -291,7 +289,7 @@ const modalStyle = {
     width: '100%',
     height: '100%',
     overflow: 'auto',
-    borderRadius:'8px',
+    borderRadius: '8px',
     backgroundColor: 'rgba(0, 0, 0, 0.4)'
 };
 
@@ -303,7 +301,7 @@ const modalContentStyle = {
     width: '60%',
     maxHeight: '90vh',
     overflowY: 'auto',
-    borderRadius:'8px'
+    borderRadius: '8px'
 };
 
 export default UserDashboard;

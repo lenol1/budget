@@ -7,18 +7,19 @@ import { useTranslation } from 'react-i18next';
 Chart.register(...registerables);
 
 const LineChart = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
+
   const [chartData, setChartData] = useState({
     labels: [],
     datasets: [{
-      label: 'Expense',
+      label: t('category.expense'),
       data: [],
       fill: false,
       borderColor: 'rgba(255, 99, 132, 1)',
       borderWidth: 2,
     },
     {
-      label: 'Income',
+      label: t('category.income'),
       data: [],
       fill: false,
       borderColor: 'rgba(54, 162, 235, 1)',
@@ -96,7 +97,7 @@ const LineChart = () => {
         }
         filteredData.sort((a, b) => new Date(a.date) - new Date(b.date));
         const transactionsByDate = filteredData.reduce((acc, transaction) => {
-          const date = new Date(transaction.date).toLocaleDateString(); 
+          const date = new Date(transaction.date).toLocaleDateString();
           if (!acc[date]) {
             acc[date] = { income: 0, expense: 0 };
           }
@@ -110,21 +111,21 @@ const LineChart = () => {
 
           return acc;
         }, {});
-        
+
         const labels = Object.keys(transactionsByDate);
         const incomeData = labels.map(date => transactionsByDate[date].income);
         const expensesData = labels.map(date => transactionsByDate[date].expense);
         setChartData({
           labels,
           datasets: [{
-            label: 'Expense',
+            label: t('category.expense'),
             data: expensesData,
             fill: false,
             backgroundColor: 'rgba(255, 255, 255, 0.2)',
             borderColor: 'rgba(255, 99, 132, 1)',
             borderWidth: 2,
-          },{
-            label: 'Income',
+          }, {
+            label: t('category.income'),
             data: incomeData,
             fill: false,
             backgroundColor: 'rgba(255, 255, 255, 0.2)',
@@ -138,36 +139,36 @@ const LineChart = () => {
     };
 
     fetchData();
-  }, [selectedCategory, categories, startDate, endDate]);
+  }, [selectedCategory, categories, startDate, endDate, t]);
 
   return (
-    <div style={{borderRadius:'8px'}}>
-      <h2 style={{ marginBottom: '20px', textDecoration:'underline' }}>Total</h2>
-      <div style={{backgroundColor:'rgba(3, 111, 226, 0.05)', borderRadius:'8px', marginBottom: '20px' }}>
+    <div style={{ borderRadius: '8px' }}>
+      <h2 style={{ marginBottom: '20px', textDecoration: 'underline' }}>{t('analyse.total')}</h2>
+      <div style={{ backgroundColor: 'rgba(3, 111, 226, 0.05)', borderRadius: '8px', marginBottom: '20px' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
-        <thead>
-          <tr style={{backgroundColor:'rgba(3, 111, 226, 0.1)'}}>
-            <th style={{color:'white'}}>{t('linegraph.category')}</th>
-            <th style={{color:'white'}}>{t('linegraph.startdate')}</th>
-            <th style={{color:'white'}}>{t('linegraph.enddate')}</th>
-          </tr>
-        </thead>
-        <tbody>
-              <tr style={{textAlign:'center'}} >
-                <td>
-                  <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
-                    <option value="">All Categories</option>
-                    {categories.map(category => (
-                    <option key={category._id} value={category._id}>{category.name}</option>
-                    ))}
-                  </select>
-                </td>
-                <td ><input type="date" style={{width:'100px'}} value={startDate} onChange={(e) => setStartDate(e.target.value)} /></td>
-                <td ><input type="date" style={{width:'100px'}} value={endDate} onChange={(e) => setEndDate(e.target.value)} /></td>
-              </tr>
+          <thead>
+            <tr style={{ backgroundColor: 'rgba(3, 111, 226, 0.1)' }}>
+              <th style={{ color: 'white', width: '20%' }}>{t('linegraph.category')}</th>
+              <th style={{ color: 'white', width: '20%' }}>{t('linegraph.startdate')}</th>
+              <th style={{ color: 'white', width: '20%' }}>{t('linegraph.enddate')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style={{ textAlign: 'center' }} >
+              <td>
+                <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
+                  <option value="">{t('category.all')}</option>
+                  {categories.map(category => (
+                    <option key={category._id} value={category._id}>{t(`transactionL.${category.name}`)}</option>
+                  ))}
+                </select>
+              </td>
+              <td ><input type="date" style={{ width: '100px' }} value={startDate} onChange={(e) => setStartDate(e.target.value)} /></td>
+              <td ><input type="date" style={{ width: '100px' }} value={endDate} onChange={(e) => setEndDate(e.target.value)} /></td>
+            </tr>
 
-        </tbody>
-      </table>
+          </tbody>
+        </table>
       </div>
       <Line data={chartData} options={options} width={150} height={50} />
     </div>

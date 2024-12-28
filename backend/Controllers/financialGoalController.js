@@ -1,7 +1,6 @@
 const Goal = require('../Models/FinancialGoal'); 
 const { get_objectId } = require('../storage/get_setObject');
 
-// Отримати всі цілі користувача
 const getGoals = async (req, res) => {
   try {
     const userId = get_objectId();
@@ -12,7 +11,6 @@ const getGoals = async (req, res) => {
   }
 };
 
-// Додати нову ціль
 const addGoal = async (req, res) => {
   const { goal, amount, endDate } = req.body;
 
@@ -36,7 +34,6 @@ const addGoal = async (req, res) => {
   }
 };
 
-// Оновити ціль
 const updateGoal = async (req, res) => {
   const { goal: newGoal, amount, endDate, currentAmount } = req.body;
 
@@ -60,7 +57,6 @@ const updateGoal = async (req, res) => {
   }
 };
 
-// Видалити ціль
 const deleteGoal = async (req, res) => {
   try {
     const userId =  get_objectId(); 
