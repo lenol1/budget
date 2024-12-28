@@ -8,7 +8,7 @@ import './i18n.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <GoogleOAuthProvider clientId='386126537704-4s4rvv86gro96l7h5gbcciqb5rt49oab.apps.googleusercontent.com'>
+  <GoogleOAuthProvider clientId='.apps.googleusercontent.com'>
     <React.StrictMode>
       <App />
     </React.StrictMode>
