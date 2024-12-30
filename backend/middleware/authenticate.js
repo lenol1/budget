@@ -18,10 +18,10 @@ const authenticate = async (req, res, next) => {
         return res.status(404).json({ message: 'User not found' });
       }
   
-      req.user = user; // Add user to request
+      req.user = user;
       next();
     } catch (error) {
-      console.error('Token validation error:', error); // Log the error for debugging
+      console.error('Token validation error:', error);
       res.status(401).json({ message: 'Token is not valid' });
     }
   };
