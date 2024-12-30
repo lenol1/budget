@@ -220,32 +220,32 @@ input:not(:placeholder-shown) + .labelG {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
 }
 body.dark .home {
-  background: rgba(30, 30, 30, 0.95); /* Темно-сірий фон */
-  color: #e0e0e0; /* Світло-сірий текст */
+  background: rgba(30, 30, 30, 0.95); 
+  color: #e0e0e0;
 }
 
 body.dark label {
-  color: rgba(200, 200, 200, 0.7); /* Світліший текст для підписів */
+  color: rgba(200, 200, 200, 0.7);
 }
 
 body.dark #add_category,
 body.dark #add_account {
-  background: rgba(50, 50, 50, 0.9); /* Темний фон */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Темна тінь */
+  background: rgba(50, 50, 50, 0.9);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 body.dark #transactionForms,
 body.dark #transactionIB,
 body.dark #transactionI {
-  background: rgba(60, 60, 60, 0.9); /* Темно-сірий фон */
-  color: #ffffff; /* Білий текст */
+  background: rgba(60, 60, 60, 0.9);
+  color: #ffffff;
 }
 
 body.dark #transactionsList {
-  border: 1px solid #444; /* Темно-сірий бордер */
+  border: 1px solid #444; 
 }
 
 body.dark .highlighted-form {
-  background-color: rgba(3, 111, 226, 0.1); /* Трохи насиченіший блакитний фон */
-  border-color: #0077cc; /* Світло-блакитний бордер */
+  background-color: rgba(3, 111, 226, 0.1); 
+  border-color: #0077cc; 
 }
