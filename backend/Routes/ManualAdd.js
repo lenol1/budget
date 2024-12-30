@@ -4,7 +4,6 @@ const Transaction = require('../Models/Transaction');
 const User = require('../Models/User');
 const authenticate = require('../middleware/authenticate');
 
-// Додавання нової операції
 router.post('/', authenticate, async (req, res) => {
     try {
         const { type, amount, description } = req.body;
@@ -22,7 +21,6 @@ router.post('/', authenticate, async (req, res) => {
     }
 });
 
-// Отримання всіх операцій для поточного користувача
 router.get('/', authenticate, async (req, res) => {
     try {
         const transactions = await Transaction.find({ user: req.user._id });
@@ -33,7 +31,6 @@ router.get('/', authenticate, async (req, res) => {
     }
 });
 
-// Видалення операції
 router.delete('/:id', authenticate, async (req, res) => {
     try {
         const transaction = await Transaction.findById(req.params.id);
