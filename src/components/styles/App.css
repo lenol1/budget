@@ -224,7 +224,6 @@ body.contrast #main {
   color: rgb(0, 0, 255, 0.3);
 }
 
-/* Загальні стилі */
 #header,
 #mainHComponents,
 h1,
@@ -244,7 +243,6 @@ form,
   transition: background 0.3s, color 0.3s, border-color 0.3s;
 }
 
-/* Світла тема */
 body.light {
   background-color: #ffffff;
 }
@@ -291,7 +289,6 @@ body.light ::-webkit-scrollbar-thumb {
   background: rgba(3, 111, 226, 0.4);
 }
 
-/* Темна тема */
 body.dark {
   background-color: #121212;
 }
@@ -338,12 +335,11 @@ body.dark ::-webkit-scrollbar-thumb {
   background: rgba(80, 80, 80, 0.6);
 }
 body.dark .tableStyle {
-  color: #000000; /* Чорний текст для кращої видимості */
-  background-color: rgb(255, 255, 255, 0.8); /* Білий фон таблиці */
-  border: 1px solid #cccccc; /* Світло-сірі межі */
+  color: #000000; 
+  background-color: rgb(255, 255, 255, 0.8); 
+  border: 1px solid #cccccc; 
 }
 
-/* Контрастна тема */
 body.contrast {
   background-color: #000000;
 }
